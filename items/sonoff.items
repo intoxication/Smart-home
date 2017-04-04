@@ -1,0 +1,19 @@
+
+Switch LivingRoom_Light "Living Room Light" <light> (LR,gLight)
+    { mqtt=">[mosquitto:cmnd/sonoff-A00F9D/power:command:*:default],
+            <[mosquitto:stat/sonoff-A00F9D/POWER:state:default]" }
+
+Switch LivingRoom_Light_Reachable "Living Room Light: reachable" (gReachable)
+    { mqtt="<[mosquitto:tele/sonoff-A00F9D/LWT:state:MAP(reachable.map)]" }
+
+// Wifi Signal Strength in Percent
+Number LivingRoom_Light_RSSI "Living Room Light: RSSI [%d %%]" (gRSSI)
+    { mqtt="<[mosquitto:tele/sonoff-A00F9D/STATE:state:JSONPATH($.Wifi.RSSI)]" }
+
+// Optional! A collection of return messages by the Sonoff module
+// Recommended: Define specific items for what you really need on a regular basis,
+// use standalone MQTT client for troubleshooting
+String LivingRoom_Light_Verbose "Living Room Light: MQTT return message [%s]"
+    { mqtt="<[mosquitto:tele/sonoff-A00F9D/INFO1:state:default],
+            <[mosquitto:stat/sonoff-A00F9D/STATUS2:state:default],
+            <[mosquitto:stat/sonoff-A00F9D/RESULT:state:default]" }
